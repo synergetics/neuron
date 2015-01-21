@@ -29,13 +29,9 @@ class Neuron(object):
       self._connections[other.uuid] = {
         "neuron": other,
         "weight": weight,
-        "on_wpike": on_spike,
+        "on_spike": on_spike,
         "excitatory": excitatory
       }
-    # if it is an input connection, return the callback to call
-    # in case of spike in that neuron
-    if not on_spike:
-      return self.excite
 
   def connect(self, other, weight):
     other.connection(self, weight, self.on_spike)
