@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import numpy as np
 import logging as log
@@ -45,9 +47,10 @@ class Neuron(object):
     for d in xrange(len(discoveries)):
       self.connect(discoveries[d], weights[d])
 
-  def excite(self, excitor, timestamp):
-    pass
+  def propagate(self, excitement, timestamp):
+    for connection in self._connections:
+      self._connections[connection]["on_spike"](self, excitement, timestamp)
 
-  def state(self):
+  def excite(self, excitor, excitement, timestamp):
     pass
 
