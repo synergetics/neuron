@@ -13,8 +13,8 @@ class LIFStochastic(LIF):
   http://icwww.epfl.ch/~gerstner/SPNM/node26.html#SECTION02311200000000000000
   """
   def __init__(self, position, excitatory=True,
-              update_rule= Default_update(),
-              discover_rule=Default_discovery(),
+              update_rule=None,
+              discover_rule=None,
               resting_potential=0,
               reversal_potential=0,
               tau_rc=0.02):
@@ -23,8 +23,7 @@ class LIFStochastic(LIF):
     self._V_rev = reversal_potential
     self._t_prev = 0
 
-    super(LIFStochastic, self).__init__(position, excitatory, update_rule,
-          discover_rule, resting_potential, reversal_potential, threshold)
+    super(LIFStochastic, self).__init__(position, excitatory, update_rule, discover_rule)
 
   def excite(self, excitor, excitement, timestamp):
     t = timestamp - self._t_prev
@@ -32,6 +31,5 @@ class LIFStochastic(LIF):
     v = v + excitement
 
     if v > self._V_rev:
-      self.spike(timestamp)
-      self.propagate(self._V_rev, timestamp)
       v = self._V_rest
+      self.spike(timestamp)

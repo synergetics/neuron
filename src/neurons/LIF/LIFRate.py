@@ -13,8 +13,8 @@ class LIFRate(LIF):
   http://en.wikipedia.org/wiki/Biological_neuron_model#Leaky_integrate-and-fire
   """
   def __init__(self, position, excitatory=True,
-              update_rule= Default_update(),
-              discover_rule=Default_discovery(),
+              update_rule=None,
+              discover_rule=None,
               tau_rc=0.02,
               tau_th=0.002,
               reversal_potential=0,
@@ -33,5 +33,4 @@ class LIFRate(LIF):
     else:
       rate = 0
     if rate: self.spike(timestamp, num=rate)
-    self.propagate(rate, timestamp)
 

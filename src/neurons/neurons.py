@@ -22,6 +22,7 @@ class Neuron(object):
     self._position = position
     self._discover_rule = discover_rule
     self._probe = None
+    self._spikes = []
 
   def connection(self, other, weight, excitatory=True, on_spike=None):
     # if we are already connected, update the weights
@@ -53,4 +54,12 @@ class Neuron(object):
 
   def excite(self, excitor, excitement, timestamp):
     pass
+
+  def spike(self, timestamp, num=1):
+    timestamp = timestamp + timestep
+    self._spikes.append(timestamp)
+
+    if self._probe:
+      self._probe(num, timestamp)
+    self.propagate(num, timestamp)
 
